@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            // $table->unsignedBigInteger('category_id');
-            $table->foreignIdFor(App\Models\Category::class);
-            $table->string('title');
-            $table->text('description');
-            $table->date('deadline')->nullable();
-            $table->boolean('completed')->default(false);
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('categories');
     }
 };
