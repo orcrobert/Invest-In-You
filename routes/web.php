@@ -4,13 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Task;
 
 Route::get('/', function () {
-    // return view('welcome', [
-    //     'eu' => 'robert',
-    //     'tu' => 'mata',
-    // ]);
-
-    $tasks = Task::all();
-    dd($tasks[0]->name);
+    return view('welcome', [
+        'tasks' => Task::all(),
+    ]);
 });
 
 Route::get('/about', function() {
