@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Task;
 
 Route::get('/', function () {
+    $tasks = Task::with('category')->get();
+
     return view('welcome', [
-        'tasks' => Task::all(),
+        'tasks' => $tasks,
     ]);
 });
 
