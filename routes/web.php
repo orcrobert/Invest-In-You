@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Task;
 use App\Http\Controllers;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\SessionController;
 
 Route::get("/", function () {
     return view("home");
@@ -18,15 +20,15 @@ Route::get('/contact', function() {
 });
 
 Route::get('/tasks', [TaskController::class, 'index']);
-
 Route::get('/task/{id}', [TaskController::class, 'show']);
-
 Route::get('/create', [TaskController::class, 'create']);
-
 Route::post('/tasks', [TaskController::class, 'store']);
-
 Route::get('/task/{id}/edit', [TaskController::class, 'edit']);
-
 Route::patch('/task/{id}', [TaskController::class, 'update']);
-
 Route::delete('/task/{id}', [TaskController::class, 'destroy']);
+
+
+Route::get('/register', [RegisteredUserController::class, 'create']);
+Route::post('/register', [RegisteredUserController::class, 'store']);
+
+Route::get('/login', [SessionController::class, 'create']);

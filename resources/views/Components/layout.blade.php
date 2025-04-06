@@ -10,14 +10,6 @@
 </head>
 
 <body>
-    <!--
-  This example requires updating your template:
-
-  ```
-  <html class="h-full bg-gray-100">
-  <body class="h-full">
-  ```
--->
     <div class="min-h-full">
         <nav class="bg-gray-800">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -45,8 +37,7 @@
                             </div>
                         </div>
                     </div>
-
-
+                    
                     <!-- Mobile menu, show/hide based on menu state. -->
                     <div class="md:hidden" id="mobile-menu">
                         <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
