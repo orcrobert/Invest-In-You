@@ -20,7 +20,7 @@
                                 src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
                                 alt="Your Company">
                         </div>
-                        <div class="hidden md:block">
+                        <div class="md:block flex justify-between">
                             <div class="ml-10 flex items-baseline space-x-4">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                 <a href="/"
@@ -38,10 +38,24 @@
                         </div>
                     </div>
                     
-                    <!-- Mobile menu, show/hide based on menu state. -->
+                    @guest
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="/login"
+                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                            >Login</a>
+                        <a href="/register"
+                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Register</a>
+                    </div>
+                    @endguest
+
+                    @auth
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <h1 class="font-black text-white">Logged In</h1>
+                    </div>
+                    @endauth
+
                     <div class="md:hidden" id="mobile-menu">
                         <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-                            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                             <a href="/"
                                 class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
                                 aria-current="page">Home</a>
