@@ -51,3 +51,36 @@ Route::post('/tasks', function() {
 
     return redirect('/tasks');
 });
+
+// Edit
+Route::get('/task/{id}/edit', function ($id) {
+    $task = Task::find($id);
+    return view('task.edit', ['task' => $task]);
+});
+
+// Update
+Route::patch('/task/{id}', function ($id) {
+    request()->validate([
+        'title' => ['required', 'string', 'min:5'],
+        'description' => ['string', 'min:10'],
+        'deadline' => ['date', 'nullable'],
+    ]);
+
+    $task = Task::findOrFail($id);
+    $task->update([
+        'title' => request('title'),
+        'description' => request('description'),
+        'deadline' => request('deadline'),
+        'category_id' => 1,
+    ]);
+
+    return redirect('/tasks');
+});
+
+// Delete
+Route::delete('/task/{id}', function ($id) {
+    $task = Task::findOrFail($id);
+    $task->delete();
+
+    return redirect('/tasks');
+});
