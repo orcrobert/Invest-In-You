@@ -26,6 +26,10 @@ Route::get('/about', function() {
     return view('about');
 });
 
+Route::get('/create', function () {
+    return view('task.create');
+});
+
 Route::get('/contact', function() {
     return view('contact');
 });
