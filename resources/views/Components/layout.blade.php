@@ -49,9 +49,11 @@
                     @endguest
 
                     @auth
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <h1 class="font-black text-white">Logged In</h1>
-                    </div>
+                    <form method="POST" class="ml-10 flex items-baseline space-x-4" action="/logout">
+                        @csrf
+                        <button type="submit"
+                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Log Out</button>
+                    </form>
                     @endauth
 
                     <div class="md:hidden" id="mobile-menu">
