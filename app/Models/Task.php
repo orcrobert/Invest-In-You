@@ -10,7 +10,8 @@ class Task extends Model
 
     use HasFactory;
     protected $table = 'tasks';
-    protected $fillable = ['title', 'description', 'deadline'];
+    protected $fillable = ['category_id', 'title', 'description', 'deadline'];
+    // or declare $guarded instead
 
     public function category() 
     {

@@ -9,7 +9,7 @@ Route::get("/", function () {
 });
 
 Route::get('/tasks', function () {
-    $tasks = Task::with('category')->paginate(3);
+    $tasks = Task::with('category')->latest()->paginate(3);
 
     return view('task.index', [
         'tasks' => $tasks,
@@ -32,4 +32,15 @@ Route::get('/create', function () {
 
 Route::get('/contact', function() {
     return view('contact');
+});
+
+Route::post('/tasks', function() {
+    Task::create([
+        'title'=> request('title'),
+        'description'=> request('description'),
+        'deadline' => request('deadline'),
+        'category_id' => 1,
+    ]);
+
+    return redirect('/tasks');
 });
