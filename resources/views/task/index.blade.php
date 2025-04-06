@@ -1,4 +1,10 @@
 <x-layout>
+
+    @guest
+        <h1 class="font-bold">NOT LOGGED IN</h1>
+        <br>
+    @endguest
+
     @foreach ($tasks as $task)
         <div>
             <a href="/task/{{ $task->id }}">

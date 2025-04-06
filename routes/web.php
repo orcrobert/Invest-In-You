@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Task;
-use App\Http\Controllers;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
