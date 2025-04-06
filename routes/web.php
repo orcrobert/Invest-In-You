@@ -35,6 +35,13 @@ Route::get('/contact', function() {
 });
 
 Route::post('/tasks', function() {
+
+    request()->validate([
+        'title' => ['required', 'string', 'min:5'],
+        'description' => ['string', 'min:10'],
+        'deadline' => ['date', 'nullable'],
+    ]);
+
     Task::create([
         'title'=> request('title'),
         'description'=> request('description'),
