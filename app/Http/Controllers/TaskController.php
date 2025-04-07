@@ -43,7 +43,7 @@ class TaskController extends Controller
             'category_id' => 1,
         ]);
 
-        Mail::to(Auth::user()->email)->send(new TaskPosted($task));
+        Mail::to(Auth::user()->email)->queue(new TaskPosted($task));
     
         return redirect('/tasks'); 
     }
