@@ -1,4 +1,3 @@
-@auth
 <x-layout>
     <form method="POST" action="/task/{{ $task->id }}">
         @csrf
@@ -76,9 +75,3 @@
     </form>
 
 </x-layout>
-
-@endauth
-
-@guest
-    <h1>Login to edit task</h1>
-@endguest

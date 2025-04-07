@@ -20,8 +20,8 @@ Route::get('/contact', function() {
 Route::get('/tasks', [TaskController::class, 'index']);
 Route::get('/task/{id}', [TaskController::class, 'show']);
 Route::get('/create', [TaskController::class, 'create']);
-Route::post('/tasks', [TaskController::class, 'store']);
-Route::get('/task/{id}/edit', [TaskController::class, 'edit']);
+Route::post('/tasks', [TaskController::class, 'store'])->middleware('auth');
+Route::get('/task/{id}/edit', [TaskController::class, 'edit'])->middleware('auth')->can('edit', 'task');
 Route::patch('/task/{id}', [TaskController::class, 'update']);
 Route::delete('/task/{id}', [TaskController::class, 'destroy']);
 
@@ -29,7 +29,7 @@ Route::delete('/task/{id}', [TaskController::class, 'destroy']);
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
-Route::get('/login', [SessionController::class, 'create']);
+Route::get('/login', [SessionController::class, 'create'])->name('login');
 Route::post('/login', [SessionController::class, 'store']);
 
 Route::post('/logout', [SessionController::class, 'destroy']);

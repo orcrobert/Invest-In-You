@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,7 @@ class TaskFactory extends Factory
         return [
             'title' => fake()->text(),
             'category_id' => Category::factory(),
+            'user_id' => User::factory(),
             'description'=> fake()->text(),
             'deadline' => fake()->date(),
         ];

@@ -1,4 +1,3 @@
-@auth
 <x-layout>
     @foreach ($tasks as $task)
         <div>
@@ -19,8 +18,3 @@
         {{ $tasks->links() }}
     </div>
 </x-layout>
-@endauth
-
-@guest
-    <h1>Login to see tasks!</h1>
-@endguest

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             // $table->unsignedBigInteger('category_id');
             $table->foreignIdFor(App\Models\Category::class);
+            $table->foreignIdFor(App\Models\User::class);
             $table->string('title');
             $table->text('description');
             $table->date('deadline')->nullable();

@@ -1,4 +1,3 @@
-@auth
 <x-layout>
     <form method="POST" action="/tasks">
         @csrf
@@ -66,9 +65,3 @@
     </form>
 
 </x-layout>
-
-@endauth
-
-@guest
-    <h1>Login to create tasks!</h1>
-@endguest
