@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TaskPosted;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -32,12 +35,15 @@ class TaskController extends Controller
             'deadline' => ['date', 'nullable'],
         ]);
     
-        Task::create([
+        $task = Task::create([
             'title'=> request('title'),
+            'user_id' => Auth::user()->id,
             'description'=> request('description'),
             'deadline' => request('deadline'),
             'category_id' => 1,
         ]);
+
+        Mail::to(Auth::user()->email)->send(new TaskPosted($task));
     
         return redirect('/tasks'); 
     }

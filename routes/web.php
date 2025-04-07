@@ -1,11 +1,16 @@
 <?php
 
+use App\Mail\TaskPosted;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
 
 Route::get("/", function () {
+    // dd(Auth::user()->id);
     return view("home");
 });
 
