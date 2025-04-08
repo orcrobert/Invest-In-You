@@ -45,7 +45,7 @@ class TaskController extends Controller
 
         Mail::to(Auth::user()->email)->queue(new TaskPosted($task));
     
-        return redirect('/tasks'); 
+        return redirect('/tasks');
     }
 
     public function edit($id) {

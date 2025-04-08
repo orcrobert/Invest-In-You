@@ -22,13 +22,13 @@ Route::get('/contact', function() {
     return view('contact');
 });
 
-Route::get('/tasks', [TaskController::class, 'index']);
-Route::get('/task/{id}', [TaskController::class, 'show']);
+Route::get('/tasks', [TaskController::class, 'index'])->middleware('auth');
+Route::get('/task/{id}', [TaskController::class, 'show'])->middleware('auth');
 Route::get('/create', [TaskController::class, 'create']);
 Route::post('/tasks', [TaskController::class, 'store'])->middleware('auth');
-Route::get('/task/{id}/edit', [TaskController::class, 'edit'])->middleware('auth')->can('edit', 'task');
+Route::get('/task/{id}/edit', [TaskController::class, 'edit'])->middleware('auth');
 Route::patch('/task/{id}', [TaskController::class, 'update']);
-Route::delete('/task/{id}', [TaskController::class, 'destroy']);
+Route::delete('/task/{id}', [TaskController::class, 'destroy'])->middleware('auth');
 
 
 Route::get('/register', [RegisteredUserController::class, 'create']);
