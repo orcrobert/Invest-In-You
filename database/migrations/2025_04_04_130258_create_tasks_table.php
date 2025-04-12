@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            // $table->unsignedBigInteger('category_id');
             $table->foreignIdFor(App\Models\Category::class);
             $table->foreignIdFor(App\Models\User::class);
             $table->string('title');

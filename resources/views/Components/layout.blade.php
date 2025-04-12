@@ -22,7 +22,6 @@
                         </div>
                         <div class="md:block flex justify-between">
                             <div class="ml-10 flex items-baseline space-x-4">
-                                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                 <a href="/"
                                     class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
                                     aria-current="page">Home</a>
@@ -106,8 +105,6 @@
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                 <h1 class="text-3xl font-bold tracking-tight text-gray-900">
                 </h1>
-
-
             </div>
         </header>
         <main>

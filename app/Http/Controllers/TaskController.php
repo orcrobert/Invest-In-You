@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class TaskController extends Controller
 {
     public function index() {
-        $tasks = Task::with('category')->latest()->paginate(3);
+        $tasks = Task::where('user_id', Auth::id())->latest()->paginate(3);
 
         return view('task.index', [
             'tasks' => $tasks,

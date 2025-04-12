@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Mail;
 
 
 Route::get("/", function () {
-    // dd(Auth::user()->id);
     return view("home");
 });
 
@@ -24,7 +23,7 @@ Route::get('/contact', function() {
 
 Route::get('/tasks', [TaskController::class, 'index'])->middleware('auth');
 Route::get('/task/{id}', [TaskController::class, 'show'])->middleware('auth');
-Route::get('/create', [TaskController::class, 'create']);
+Route::get('/create', [TaskController::class, 'create'])->middleware('auth');
 Route::post('/tasks', [TaskController::class, 'store'])->middleware('auth');
 Route::get('/task/{id}/edit', [TaskController::class, 'edit'])->middleware('auth');
 Route::patch('/task/{id}', [TaskController::class, 'update']);
