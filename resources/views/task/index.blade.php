@@ -7,7 +7,7 @@
                 <div class="p-4 border-b">
                     <div class="flex items-center space-x-4">
                         <div class="relative">
-                            <img src="{{ auth()->user()->profile_photo_url }}" alt="{{ auth()->user()->name }}" class="w-12 h-12 rounded-full">
+                            <img src="https://m.media-amazon.com/images/M/MV5BZDcyMGU3MDEtODkwOS00ZGFlLTllNTAtMGExMDE3OTAzMjI5XkEyXkFqcGc@._V1_.jpg" alt="{{ auth()->user()->name }}" class="w-12 h-12 rounded-full">
                             <div class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
                         </div>
                         <div>
