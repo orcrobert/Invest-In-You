@@ -1,4 +1,6 @@
 <x-layout>
+    <link href="{{ asset('css/tasks.css') }}" rel="stylesheet">
+    
     <div class="min-h-screen bg-gradient-to-br from-gray-50 to-indigo-50">
         <!-- Sidebar -->
         <div class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out hover-lift">
@@ -85,11 +87,11 @@
                         </div>
                     @else
                         @foreach($tasks as $task)
-                            <div class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition duration-300 hover:shadow-xl hover-lift task-card {{ $task->completed ? 'bg-green-100/20 opacity-50' : '' }}">
+                            <div class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition duration-300 hover:shadow-xl hover-lift task-card {{ $task->completed ? 'task-completed' : '' }}">
                                 <div class="flex justify-between items-start">
                                     <div class="flex-1">
                                         <div class="flex items-center justify-between">
-                                            <h3 class="text-lg font-semibold text-gray-800 transform hover:scale-105 transition duration-300 {{ $task->completed ? 'text-green-800/70' : '' }}">{{ $task->title }}</h3>
+                                            <h3 class="text-lg font-semibold text-gray-800 transform hover:scale-105 transition duration-300 {{ $task->completed ? 'text-content' : '' }}">{{ $task->title }}</h3>
                                             @if(!$task->completed)
                                             <form method="POST" action="/task/{{ $task->id }}/complete" class="ml-4">
                                                 @csrf
@@ -112,15 +114,15 @@
                                             </div>
                                             @endif
                                         </div>
-                                        <p class="text-gray-600 mt-2 {{ $task->completed ? 'text-green-700/70' : '' }}">{{ $task->description }}</p>
+                                        <p class="text-gray-600 mt-2 {{ $task->completed ? 'text-content' : '' }}">{{ $task->description }}</p>
                                         <div class="mt-4 flex items-center space-x-4">
-                                            <span class="text-sm text-gray-500 flex items-center transform hover:scale-105 transition duration-300 hover-lift {{ $task->completed ? 'text-green-700/70' : '' }}">
+                                            <span class="text-sm text-gray-500 flex items-center transform hover:scale-105 transition duration-300 hover-lift {{ $task->completed ? 'text-content' : '' }}">
                                                 <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                                 </svg>
                                                 Deadline: {{ $task->deadline ? \Carbon\Carbon::parse($task->deadline)->format('d.m.Y H:i') : 'Nespecificat' }}
                                             </span>
-                                            <span class="text-sm text-gray-500 flex items-center transform hover:scale-105 transition duration-300 hover-lift {{ $task->completed ? 'text-green-700/70' : '' }}">
+                                            <span class="text-sm text-gray-500 flex items-center transform hover:scale-105 transition duration-300 hover-lift {{ $task->completed ? 'text-content' : '' }}">
                                                 <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                                 </svg>
@@ -129,7 +131,7 @@
                                         </div>
                                     </div>
                                     <div class="flex space-x-2">
-                                        <a href="/tasks/{{ $task->id }}/edit" class="text-indigo-600 hover:text-indigo-800 transform hover:scale-110 transition duration-300 hover-lift {{ $task->completed ? 'text-green-700/70 hover:text-green-800/70' : '' }}">
+                                        <a href="/tasks/{{ $task->id }}/edit" class="text-indigo-600 hover:text-indigo-800 transform hover:scale-110 transition duration-300 hover-lift {{ $task->completed ? 'action-buttons' : '' }}">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                             </svg>
@@ -137,7 +139,7 @@
                                         <form method="POST" action="/task/{{ $task->id }}" id="delete-form">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-800 transform hover:scale-110 transition duration-300 hover-lift {{ $task->completed ? 'text-green-700/70 hover:text-green-800/70' : '' }}">
+                                            <button type="submit" class="text-red-600 hover:text-red-800 transform hover:scale-110 transition duration-300 hover-lift {{ $task->completed ? 'action-buttons' : '' }}">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                                 </svg>
