@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('tasks', function (Blueprint $table) {
             $table->float('price')->default(1);
-            $table->boolean('status')->default(0);
+            $table->boolean('completed')->default(0);
         });
     }
 
@@ -24,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('tasks', function (Blueprint $table) {
             $table->dropColumn('price');
+            $table->dropColumn('completed');
         });
     }
 };

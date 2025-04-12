@@ -15,10 +15,10 @@ class TaskController extends Controller
         $tasks = Task::where('user_id', Auth::id());
 
         if ($request->query('status') === 'not-completed') {
-            $tasks->where('status', false);
+            $tasks->where('completed', false);
         }
 
-        $tasks = $tasks->latest()->paginate(4);
+        $tasks = $tasks->latest()->paginate(10);
 
         return view('task.index', compact('tasks'));
     }
@@ -78,7 +78,7 @@ class TaskController extends Controller
 
     public function complete($id) {
         $task = Task::find($id);
-        $task->update(['status' => true]);
+        $task->update(['completed' => true]);
 
         return redirect('/tasks');
     }
