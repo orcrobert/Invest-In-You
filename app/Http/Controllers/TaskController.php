@@ -33,6 +33,7 @@ class TaskController extends Controller
             'title' => ['required', 'string', 'min:5'],
             'description' => ['string', 'min:10'],
             'deadline' => ['date', 'nullable'],
+            'price' => ['numeric', 'min:1'],
         ]);
     
         $task = Task::create([
@@ -40,6 +41,7 @@ class TaskController extends Controller
             'user_id' => Auth::user()->id,
             'description'=> request('description'),
             'deadline' => request('deadline'),
+            'price' => request('price'),
         ]);
 
         Mail::to(Auth::user()->email)->queue(new TaskPosted($task));
