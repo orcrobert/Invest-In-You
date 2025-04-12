@@ -23,12 +23,8 @@
                         <div class="md:block flex justify-between">
                             <div class="ml-10 flex items-baseline space-x-4">
                                 <a href="/"
-                                    class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+                                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                                     aria-current="page">Home</a>
-                                <a href="/about"
-                                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">About</a>
-                                <a href="/contact"
-                                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Contact</a>
                                 <a href="/tasks"
                                     class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tasks</a>
                                 <a href="/create"
