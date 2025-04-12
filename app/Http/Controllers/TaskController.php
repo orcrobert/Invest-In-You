@@ -10,12 +10,17 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    public function index() {
-        $tasks = Task::where('user_id', Auth::id())->latest()->paginate(3);
+    public function index(Request $request)
+    {
+        $tasks = Task::where('user_id', Auth::id());
 
-        return view('task.index', [
-            'tasks' => $tasks,
-        ]);
+        if ($request->query('status') === 'not-completed') {
+            $tasks->where('status', false);
+        }
+
+        $tasks = $tasks->latest()->paginate(3);
+
+        return view('task.index', compact('tasks'));
     }
 
     public function create() {
@@ -68,6 +73,13 @@ class TaskController extends Controller
             'deadline' => request('deadline'),
         ]);
     
+        return redirect('/tasks');
+    }
+
+    public function complete($id) {
+        $task = Task::find($id);
+        $task->update(['status' => true]);
+
         return redirect('/tasks');
     }
 
