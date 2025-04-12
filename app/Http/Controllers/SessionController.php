@@ -27,7 +27,7 @@ class SessionController extends Controller
         } 
 
         request()->session()->regenerate();
-        return redirect('/tasks');
+        return redirect('/master');
     }
 
     public function destroy() 

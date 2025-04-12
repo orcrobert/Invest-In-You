@@ -7,11 +7,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Task extends Model
 {
-
     use HasFactory;
-    protected $table = 'tasks';
-    protected $fillable = ['user_id', 'title', 'description', 'deadline', 'price'];
-    // or declare $guarded instead
+    
+    protected $fillable = [
+        'user_id', 
+        'title', 
+        'description', 
+        'deadline', 
+        'penalty'
+    ];
+
+    protected $casts = [
+        'deadline' => 'datetime',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function category() 
     {
