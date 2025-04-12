@@ -16,15 +16,6 @@ Route::get("/", function () {
     return view("home");
 });
 
-// Ruta pentru master page
-Route::get('/master', function () {
-    if (!Auth::check()) {
-        return redirect('/');
-    }
-    return view('master', [
-        'tasks' => Auth::user()->tasks()->orderBy('deadline', 'asc')->get()
-    ]);
-})->middleware('auth');
 
 Route::get('/home', function () {
     return view("home");
@@ -36,6 +27,7 @@ Route::get('/contact', function() {
 
 // Rute pentru task-uri
 Route::get('/create', [TaskController::class, 'create'])->middleware('auth');
+Route::get('/tasks', [TaskController::class, 'index'])->middleware('auth');
 Route::post('/tasks', [TaskController::class, 'store'])->middleware('auth');
 Route::get('/task/{id}/edit', [TaskController::class, 'edit'])->middleware('auth');
 Route::patch('/task/{id}', [TaskController::class, 'update']);
