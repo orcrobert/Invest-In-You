@@ -18,7 +18,7 @@ class TaskController extends Controller
             $tasks->where('status', false);
         }
 
-        $tasks = $tasks->latest()->paginate(3);
+        $tasks = $tasks->latest()->paginate(4);
 
         return view('task.index', compact('tasks'));
     }
