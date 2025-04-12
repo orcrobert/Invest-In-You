@@ -2,7 +2,6 @@
     @foreach ($tasks as $task)
         <div>
             <a href="/task/{{ $task->id }}">
-                Category: {{ $task->category->name }}<br>
                 Title: {{ $task->title }}<br>
                 Description: {{ $task->description }}<br>
                 Deadline: {{ $task->deadline }}<br>

@@ -40,7 +40,6 @@ class TaskController extends Controller
             'user_id' => Auth::user()->id,
             'description'=> request('description'),
             'deadline' => request('deadline'),
-            'category_id' => 1,
         ]);
 
         Mail::to(Auth::user()->email)->queue(new TaskPosted($task));
@@ -65,7 +64,6 @@ class TaskController extends Controller
             'title' => request('title'),
             'description' => request('description'),
             'deadline' => request('deadline'),
-            'category_id' => 1,
         ]);
     
         return redirect('/tasks');

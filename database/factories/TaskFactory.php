@@ -20,7 +20,6 @@ class TaskFactory extends Factory
     {
         return [
             'title' => fake()->text(),
-            'category_id' => Category::factory(),
             'user_id' => User::factory(),
             'description'=> fake()->text(),
             'deadline' => fake()->date(),
