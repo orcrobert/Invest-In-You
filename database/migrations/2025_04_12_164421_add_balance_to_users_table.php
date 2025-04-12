@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->float('price')->default(1);
-            $table->boolean('status')->default(0);
+        Schema::table('users', function (Blueprint $table) {
+            $table->float('balance')->default(0);
         });
     }
 
@@ -22,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->dropColumn('price');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('balance');
         });
     }
 };
