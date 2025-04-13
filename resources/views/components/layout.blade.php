@@ -307,6 +307,14 @@
                 </div>
             </div>
 
+            <template id="loadingTemplate">
+                <div class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg max-w-[85%]">
+                    <div class="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 0s"></div>
+                    <div class="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    <div class="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                </div>
+            </template>
+
             <!-- Chat Input -->
             <div class="p-3 border-t border-gray-200 bg-white">
                 <form id="chatForm" class="flex space-x-2">
@@ -387,8 +395,10 @@
                         addMessage(message, 'user');
                         chatInput.value = '';
 
+                        const loadingDiv = showLoading();
                         getAIResponse(message).then(response => {
                             addMessage(response, 'ai');
+                            loadingDiv.remove();
                         });
                     }
                 });
@@ -438,6 +448,17 @@
                     card.style.opacity = '1';
                 }, 100);
             });
+
+            function showLoading() {
+                const template = document.getElementById('loadingTemplate');
+                const loading = template.content.cloneNode(true);
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'loading-indicator mb-4';
+                loadingDiv.appendChild(loading);
+                chatMessages.appendChild(loadingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                return loadingDiv;
+            }
         });
     </script>
 </body>
