@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskMaster Pro</title>
+    <title>IIY</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
@@ -150,7 +150,7 @@
             <!-- Logo -->
             <div class="h-16 flex items-center justify-center border-b border-gray-100">
                 <a href="/home">
-                <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">TaskMaster Pro</h1>
+                <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">IIY</h1>
                 </a>
             </div>
             
@@ -241,7 +241,7 @@
                     </button>
                     
                     <!-- Page title - Mobile visible -->
-                    <h1 class="text-xl font-bold text-gray-800 md:hidden">TaskMaster Pro</h1>
+                    <h1 class="text-xl font-bold text-gray-800 md:hidden">IIY</h1>
                     
                     <!-- Search bar -->
                     <div class="hidden md:block relative w-1/3">
@@ -293,13 +293,6 @@
                         </div>
                         
                         <div class="mt-4 md:mt-0 flex space-x-3">
-                            <button class="flex items-center px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-700 text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition ease-in-out duration-150">
-                                <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
-                                </svg>
-                                <span>Filtrează</span>
-                            </button>
-                            
                             <a href="/create" class="btn-gradient flex items-center px-4 py-2 bg-indigo-600 rounded-lg text-white text-sm font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition ease-in-out duration-150">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
@@ -589,7 +582,7 @@
                 <div class="container mx-auto px-4 md:px-6">
                     <div class="flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
                         <div>
-                            <p>&copy; {{ date('Y') }} TaskMaster Pro. Toate drepturile rezervate.</p>
+                            <p>&copy; {{ date('Y') }}  IIY. Toate drepturile rezervate.</p>
                         </div>
                         <div class="mt-2 md:mt-0">
                             <ul class="flex space-x-4">

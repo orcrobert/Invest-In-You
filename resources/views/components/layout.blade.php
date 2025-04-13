@@ -131,7 +131,7 @@
                     <!-- Logo and Brand -->
                     <div class="flex items-center">
                         <div class="ml-4">
-                            <a href="/" class="text-2xl font-bold text-white">TaskMaster Pro</a>
+                            <a href="/" class="text-2xl font-bold text-white">IIY</a>
                         </div>
                     </div>
                     
@@ -139,7 +139,7 @@
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-center space-x-6">
                             @auth
-                            <a href="/tasks" class="text-white hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">Dashboard</a>
+                            <a href="/tasks" class="text-indigo-200 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">Dashboard</a>
                             <a href="/deposit" class="text-indigo-200 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">Deposit</a>
                             <a href="/refund" class="text-indigo-200 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">Withdraw</a>
                             @endauth
@@ -272,7 +272,7 @@
         <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
                 <div>
-                    <p>&copy; {{ date('Y') }} TaskMaster Pro. Toate drepturile rezervate.</p>
+                    <p>&copy; {{ date('Y') }} IIY Pro. Toate drepturile rezervate.</p>
                 </div>
                 <div class="mt-2 md:mt-0">
                     <ul class="flex space-x-4">

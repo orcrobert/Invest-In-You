@@ -39,7 +39,7 @@
                 <div class="md:col-span-1">
                     <div class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition duration-300 hover:shadow-xl hover-lift">
                         <div class="flex flex-col items-center">
-                            <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" class="w-32 h-32 rounded-full mb-4 transform hover:scale-110 transition duration-300">
+                            <img src="https://m.media-amazon.com/images/M/MV5BZDcyMGU3MDEtODkwOS00ZGFlLTllNTAtMGExMDE3OTAzMjI5XkEyXkFqcGc@._V1_.jpg" alt="{{ $user->name }}" class="w-32 h-32 rounded-full mb-4 transform hover:scale-110 transition duration-300">
                             <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ $user->name }}</h2>
                             <p class="text-gray-600 mb-4">{{ $user->email }}</p>
                             <div class="w-full border-t border-gray-200 pt-4">
