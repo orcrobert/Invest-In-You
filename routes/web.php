@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 // Ruta principală - redirecționează în funcție de autentificare
 Route::get("/", function () {
     if (Auth::check()) {
-        return redirect('/master');
+        return redirect('/tasks');
     }
     return view("home");
 });

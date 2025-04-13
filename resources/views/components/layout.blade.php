@@ -86,6 +86,98 @@
         </main>
     </div>
 
+    <!-- Chat Widget -->
+    <div class="fixed bottom-4 right-4 z-50">
+        <!-- Chat Button -->
+        <button id="chatButton" class="bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+            </svg>
+        </button>
+
+        <!-- Chat Window -->
+        <div id="chatWindow" class="hidden fixed bottom-20 right-4 w-80 h-96 bg-white rounded-lg shadow-xl flex flex-col">
+            <!-- Chat Header -->
+            <div class="bg-indigo-600 text-white p-3 rounded-t-lg flex justify-between items-center">
+                <h3 class="font-semibold">AI Asistent</h3>
+                <button id="closeChat" class="text-white hover:text-gray-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto">
+                <div class="bg-indigo-50 rounded-lg p-3 mb-4">
+                    <p class="text-sm text-gray-700">Bună! Sunt aici să te ajut. Cu ce te pot ajuta astăzi?</p>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="p-4 border-t">
+                <form id="chatForm" class="flex space-x-2">
+                    <input type="text" id="chatInput" class="flex-1 border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Scrie un mesaj...">
+                    <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatButton = document.getElementById('chatButton');
+            const chatWindow = document.getElementById('chatWindow');
+            const closeChat = document.getElementById('closeChat');
+            const chatForm = document.getElementById('chatForm');
+            const chatInput = document.getElementById('chatInput');
+            const chatMessages = document.getElementById('chatMessages');
+
+            // Toggle chat window
+            chatButton.addEventListener('click', () => {
+                chatWindow.classList.toggle('hidden');
+            });
+
+            // Close chat window
+            closeChat.addEventListener('click', () => {
+                chatWindow.classList.add('hidden');
+            });
+
+            // Handle chat form submission
+            chatForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const message = chatInput.value.trim();
+                if (message) {
+                    // Add user message
+                    addMessage(message, 'user');
+                    chatInput.value = '';
+
+                    // TODO: Connect to AI API here
+                    // For now, just add a dummy response
+                    setTimeout(() => {
+                        addMessage('Îmi pare rău, dar momentan nu sunt conectat la API-ul de AI. Această funcționalitate va fi implementată în curând!', 'ai');
+                    }, 1000);
+                }
+            });
+
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `mb-4 ${sender === 'user' ? 'ml-auto' : ''}`;
+                
+                const messageContent = document.createElement('div');
+                messageContent.className = `rounded-lg p-3 ${sender === 'user' ? 'bg-indigo-600 text-white' : 'bg-indigo-50'}`;
+                messageContent.innerHTML = `<p class="text-sm">${text}</p>`;
+                
+                messageDiv.appendChild(messageContent);
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+    </script>
 </body>
 
 

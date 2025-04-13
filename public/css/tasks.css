@@ -1,0 +1,90 @@
+/* Custom Animations */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.task-card {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+/* Hover Effects */
+.hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Smooth Transitions */
+.smooth-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Gradient Background */
+.gradient-bg {
+    background: linear-gradient(135deg, #f6f7fb 0%, #eef2ff 100%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Card Hover Effects */
+.task-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+/* Button Hover Effects */
+button:hover, a:hover {
+    transform: scale(1.05);
+}
+
+/* Input Focus Effects */
+input:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5);
+}
+
+/* Completed Task Styles */
+.task-completed {
+    background-color: rgba(220, 252, 231, 0.2);
+    opacity: 0.5;
+}
+
+.task-completed .text-content {
+    color: rgba(22, 163, 74, 0.7);
+}
+
+.task-completed .action-buttons {
+    color: rgba(22, 163, 74, 0.7);
+}
+
+.task-completed .action-buttons:hover {
+    color: rgba(22, 163, 74, 0.9);
+} 
