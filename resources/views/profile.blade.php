@@ -1,6 +1,6 @@
 <x-layout>
     <link href="{{ asset('css/tasks.css') }}" rel="stylesheet">
-    
+
     <div class="min-h-screen bg-gradient-to-br from-gray-50 to-indigo-50">
         <!-- Main Content -->
         <div class="max-w-5xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
@@ -131,4 +131,4 @@
             </div>
         </div>
     </div>
-</x-layout> 
+</x-layout>
