@@ -149,7 +149,9 @@
         <div class="hidden md:flex md:flex-col w-64 bg-white shadow-lg">
             <!-- Logo -->
             <div class="h-16 flex items-center justify-center border-b border-gray-100">
+                <a href="/home">
                 <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">TaskMaster Pro</h1>
+                </a>
             </div>
             
             <!-- User Profile -->

@@ -10,6 +10,7 @@ class UserController extends Controller
     public function add_balance(Request $request) {
         $user = Auth::user();
         $user->balance += $request->amount;
+        $user->save();
 
         return redirect('/tasks');
     }

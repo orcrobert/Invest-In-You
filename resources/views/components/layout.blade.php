@@ -116,9 +116,6 @@
                 <div class="flex h-16 items-center justify-between">
                     <!-- Logo and Brand -->
                     <div class="flex items-center">
-                        <div class="shrink-0">
-                            <img class="h-9 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=300" alt="TaskMaster Pro">
-                        </div>
                         <div class="ml-4">
                             <a href="/" class="text-2xl font-bold text-white">TaskMaster Pro</a>
                         </div>

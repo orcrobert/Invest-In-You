@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\TaskPosted;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class TaskController extends Controller
 {
@@ -21,10 +22,8 @@ class TaskController extends Controller
             $query->where('completed', true);
         }
 
-        // Get tasks for the listing
         $tasks = $query->latest()->paginate(10);
 
-        // Calculate statistics for the dashboard
         $statsData = [
             'total' => Task::where('user_id', Auth::id())->count(),
             'completed' => Task::where('user_id', Auth::id())->where('completed', true)->count(),
@@ -35,14 +34,12 @@ class TaskController extends Controller
                 ->count(),
         ];
 
-        // Calculate completion rate
         if ($statsData['total'] > 0) {
             $statsData['completion_rate'] = round(($statsData['completed'] / $statsData['total']) * 100);
         } else {
             $statsData['completion_rate'] = 0;
         }
 
-        // Calculate total penalties for overdue tasks
         $statsData['total_penalties'] = Task::where('user_id', Auth::id())
             ->where('completed', false)
             ->where('deadline', '<', now())
@@ -74,6 +71,17 @@ class TaskController extends Controller
             'price' => ['numeric', 'min:1'],
         ]);
 
+        $user = Auth::user();
+
+        if ($user->balance < request()->price) {
+            throw ValidationException::withMessages([
+                'errors' => "Task price higher than user balance",
+            ]);
+        }
+
+        $user->balance -= request()->price;
+        $user->save();
+
         $task = Task::create([
             'title' => request('title'),
             'user_id' => Auth::user()->id,
@@ -95,10 +103,6 @@ class TaskController extends Controller
 
     public function update($id)
     {
-        Log::info('Update method called for task ID: ' . $id);
-        Log::info('Request method: ' . request()->method());
-        Log::info('Request data: ', request()->all());
-
         request()->validate([
             'title' => ['required', 'string', 'min:5'],
             'description' => ['string', 'min:10'],
