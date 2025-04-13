@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Task;
 
 class AIController extends Controller
 {
@@ -84,6 +85,89 @@ class AIController extends Controller
                 'success' => false,
                 'message' => 'Îmi pare rău, dar momentan nu sunt conectat la API-ul de AI. Această funcționalitate va fi implementată în curând!'
             ], 10);
+        }
+    }
+
+    public function suggestTaskPrice(Request $request)
+    {
+        try {
+            $title = $request->input('title');
+            $user = Auth::user();
+            $userBalance = $user->balance;
+
+            // Get user's recent tasks for context
+            $recentTasks = Task::where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->take(5)
+                ->get();
+
+            // Format recent tasks for context
+            $tasksContext = $recentTasks->map(function($task) {
+                return "Task: {$task->title}, Price: {$task->price} RON, Status: " . 
+                    ($task->completed ? 'Completed' : 'Not Completed');
+            })->join("\n");
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . config('services.openrouter.key'),
+                'HTTP-Referer' => url('/'),
+                'X-Title' => 'TaskMaster Pro',
+                'Content-Type' => 'application/json'
+            ])->post('https://openrouter.ai/api/v1/chat/completions', [
+                'model' => 'meta-llama/llama-3.3-70b-instruct:free',
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => "You are a task pricing expert for TaskMaster Pro. Your role is to suggest appropriate prices for tasks based on:
+                        1. The task's title and complexity
+                        2. The user's current balance ({$userBalance} RON)
+                        3. The user's task history
+                        4. The importance of maintaining motivation
+
+                        Recent tasks for context:
+                        {$tasksContext}
+
+                        Guidelines:
+                        - Price should be between 5 and 100 RON
+                        - Consider the user's spending patterns from their history
+                        - Higher prices for more complex or important tasks
+                        - Lower prices for simpler tasks
+                        - Consider the user's current balance
+                        - Ensure the price is motivating but not financially burdensome
+
+                        Respond ONLY with a number between 5 and 100, no additional text."
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => "Suggest a price for this new task: {$title}"
+                    ]
+                ]
+            ]);
+
+            if (!$response->successful()) {
+                throw new \Exception('API request failed');
+            }
+
+            $data = $response->json();
+            $suggestedPrice = (int) preg_replace('/[^0-9]/', '', $data['choices'][0]['message']['content']);
+            
+            // Ensure price is within acceptable range
+            $suggestedPrice = max(5, min(100, $suggestedPrice));
+
+            return response()->json([
+                'success' => true,
+                'price' => $suggestedPrice,
+                'context' => [
+                    'balance' => $userBalance,
+                    'recent_tasks' => $recentTasks->count()
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to generate price suggestion',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
 }

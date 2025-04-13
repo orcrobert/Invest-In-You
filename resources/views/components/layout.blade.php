@@ -347,6 +347,97 @@
             // User Menu Toggle (Desktop)
             const userMenuButton = document.getElementById('user-menu-button');
             const userDropdown = document.getElementById('user-dropdown');
+
+
+            const titleInput = document.getElementById('title');
+            const priceInput = document.getElementById('price');
+            let debounceTimer;
+
+            function setLoadingState(isLoading) {
+                if (isLoading) {
+                    priceInput.placeholder = 'Calculating price...';
+                    priceInput.disabled = true;
+                    // Add a loading indicator next to the price input
+                    const loadingIndicator = document.createElement('div');
+                    loadingIndicator.id = 'price-loading';
+                    loadingIndicator.className = 'inline-flex items-center ml-2';
+                    loadingIndicator.innerHTML = `
+                        <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-indigo-600"></div>
+                    `;
+                    priceInput.parentNode.appendChild(loadingIndicator);
+                } else {
+                    priceInput.disabled = false;
+                    priceInput.placeholder = 'Enter price';
+                    const loadingIndicator = document.getElementById('price-loading');
+                    if (loadingIndicator) {
+                        loadingIndicator.remove();
+                    }
+                }
+            }
+
+                // Function to get price suggestion
+            async function getSuggestedPrice(title) {
+                try {
+                    const response = await fetch('/api/suggest-task-price', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify({ title })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    const data = await response.json();
+                    return data.success ? data.price : null;
+                } catch (error) {
+                    console.error('Error getting price suggestion:', error);
+                    return null;
+                }
+            }
+
+            function updatePrice(price) {
+                priceInput.value = price;
+                priceInput.classList.add('bg-green-50');
+                setTimeout(() => {
+                    priceInput.classList.remove('bg-green-50');
+                }, 1000);
+            }
+
+                // Add event listener for title input
+            titleInput.addEventListener('blur', function() {
+                const title = this.value.trim();
+                
+                // Validate title
+                if (title.length < 3) {
+                    return; // Title too short
+                }
+
+                // Clear previous timeout
+                clearTimeout(debounceTimer);
+
+                // Set new timeout
+                debounceTimer = setTimeout(async () => {
+                    setLoadingState(true);
+                    
+                    const suggestedPrice = await getSuggestedPrice(title);
+                    
+                    setLoadingState(false);
+                    
+                    if (suggestedPrice) {
+                        updatePrice(suggestedPrice);
+                    }
+                }, 500); // 500ms debounce
+            });
+
+            // Optional: Add event listener for title input changes
+            titleInput.addEventListener('input', function() {
+                clearTimeout(debounceTimer); // Clear any pending timeouts
+            });
+
             
             if (userMenuButton && userDropdown) {
                 userMenuButton.addEventListener('click', () => {

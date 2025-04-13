@@ -52,7 +52,7 @@
                         
                         <!-- Description Field -->
                         <div class="col-span-full">
-                            <label for="description" class="block text-sm font-medium text-gray-700">Descriere<span class="text-red-500">*</span></label>
+                            <label for="description" class="block text-sm font-medium text-gray-700">Descriere</label>
                             <div class="mt-1">
                                 <textarea name="description" id="description" rows="3" 
                                     class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 transition duration-150"
