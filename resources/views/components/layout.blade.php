@@ -320,7 +320,6 @@
                 </div>
             </div>
 
-            <!-- Loading Template -->
             <template id="loadingTemplate">
                 <div class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg max-w-[85%]">
                     <div class="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 0s"></div>
@@ -406,33 +405,12 @@
                         // Add user message
                         addMessage(message, 'user');
                         chatInput.value = '';
-                        
-                        // Show loading indicator
-                        const loadingIndicator = showLoading();
 
-                        try {
-                            // Disable input while processing
-                            chatInput.disabled = true;
-                            
-                            // Get AI response
-                            const response = await getAIResponse(message);
-                            
-                            // Remove loading indicator
-                            loadingIndicator.remove();
-                            
-                            // Add AI response
+                        const loadingDiv = showLoading();
+                        getAIResponse(message).then(response => {
                             addMessage(response, 'ai');
-                        } catch (error) {
-                            // Remove loading indicator
-                            loadingIndicator.remove();
-                            
-                            // Add error message
-                            addMessage('Sorry, there was an error processing your request.', 'ai');
-                        } finally {
-                            // Re-enable input
-                            chatInput.disabled = false;
-                            chatInput.focus();
-                        }
+                            loadingDiv.remove();
+                        });
                     }
                 });
             }
@@ -501,6 +479,17 @@
                     card.style.opacity = '1';
                 }, 100);
             });
+
+            function showLoading() {
+                const template = document.getElementById('loadingTemplate');
+                const loading = template.content.cloneNode(true);
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'loading-indicator mb-4';
+                loadingDiv.appendChild(loading);
+                chatMessages.appendChild(loadingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                return loadingDiv;
+            }
         });
     </script>
 </body>
