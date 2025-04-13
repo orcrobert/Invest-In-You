@@ -31,6 +31,19 @@
             }
         }
 
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .animate-bounce {
+            animation: bounce 0.8s infinite;
+        }
+
         .animated-card {
             animation: fadeIn 0.5s ease-out forwards;
             opacity: 0;
@@ -307,6 +320,15 @@
                 </div>
             </div>
 
+            <!-- Loading Template -->
+            <template id="loadingTemplate">
+                <div class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg max-w-[85%]">
+                    <div class="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 0s"></div>
+                    <div class="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    <div class="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                </div>
+            </template>
+
             <!-- Chat Input -->
             <div class="p-3 border-t border-gray-200 bg-white">
                 <form id="chatForm" class="flex space-x-2">
@@ -361,7 +383,6 @@
             // Toggle chat window
             if (chatButton && chatWindow) {
                 chatButton.addEventListener('click', () => {
-                    console.log('chatButton clicked');
                     chatWindow.classList.toggle('hidden');
                     if (!chatWindow.classList.contains('hidden')) {
                         chatWindow.style.opacity = '1';
@@ -372,7 +393,6 @@
             // Close chat window
             if (closeChat && chatWindow) {
                 closeChat.addEventListener('click', () => {
-                    console.log('closeChat clicked');
                     chatWindow.classList.add('hidden');
                 });
             }
@@ -386,24 +406,53 @@
                         // Add user message
                         addMessage(message, 'user');
                         chatInput.value = '';
+                        
+                        // Show loading indicator
+                        const loadingIndicator = showLoading();
 
-                        getAIResponse(message).then(response => {
+                        try {
+                            // Disable input while processing
+                            chatInput.disabled = true;
+                            
+                            // Get AI response
+                            const response = await getAIResponse(message);
+                            
+                            // Remove loading indicator
+                            loadingIndicator.remove();
+                            
+                            // Add AI response
                             addMessage(response, 'ai');
-                        });
+                        } catch (error) {
+                            // Remove loading indicator
+                            loadingIndicator.remove();
+                            
+                            // Add error message
+                            addMessage('Sorry, there was an error processing your request.', 'ai');
+                        } finally {
+                            // Re-enable input
+                            chatInput.disabled = false;
+                            chatInput.focus();
+                        }
                     }
                 });
             }
 
             async function getAIResponse(message) {
                 try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
                     const response = await fetch('/ai/response', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                         },
-                        body: JSON.stringify({ message })
+                        body: JSON.stringify({ message }),
+                        signal: controller.signal
                     });
+
+                    clearTimeout(timeoutId);
 
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -413,8 +462,22 @@
                     return data.success ? data.message : 'Sorry, there was an error processing your request.';
                 } catch (error) {
                     console.error('Error getting AI response:', error);
+                    if (error.name === 'AbortError') {
+                        return 'Sorry, the request took too long. Please try again.';
+                    }
                     return 'Îmi pare rău, dar momentan nu sunt conectat la API-ul de AI. Această funcționalitate va fi implementată în curând!';
                 }
+            } 
+
+            function showLoading() {
+                const template = document.getElementById('loadingTemplate');
+                const loading = template.content.cloneNode(true);
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'loading-indicator mb-4';
+                loadingDiv.appendChild(loading);
+                chatMessages.appendChild(loadingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                return loadingDiv;
             }
 
             function addMessage(text, sender) {
