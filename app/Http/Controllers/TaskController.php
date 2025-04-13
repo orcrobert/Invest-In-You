@@ -7,6 +7,7 @@ use App\Models\Task;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TaskPosted;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -94,6 +95,10 @@ class TaskController extends Controller
 
     public function update($id)
     {
+        Log::info('Update method called for task ID: ' . $id);
+        Log::info('Request method: ' . request()->method());
+        Log::info('Request data: ', request()->all());
+
         request()->validate([
             'title' => ['required', 'string', 'min:5'],
             'description' => ['string', 'min:10'],
