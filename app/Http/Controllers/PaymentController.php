@@ -64,6 +64,30 @@ class PaymentController extends Controller
         }
     }
 
+    public function refundPayment(Request $request)
+    {
+        $paymentIntentId = $request->input('payment_intent_id');
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        try {
+            // Create a refund
+            $refund = \Stripe\Refund::create([
+                'payment_intent' => $paymentIntentId,
+            ]);
+
+            // Update user's balance in your database
+            $user = Auth::user();
+            $amount = $request->input('amount');
+            $user->balance -= $amount;
+            $user->save();
+
+            return redirect('/tasks')->with('success', 'Refund processed successfully!');
+        } catch (\Exception $e) {
+            return redirect('/tasks')->with('error', 'Refund failed: ' . $e->getMessage());
+        }
+    }
+
     public function paymentCancel()
     {
         return redirect('/')->with('error', 'Payment was cancelled.');

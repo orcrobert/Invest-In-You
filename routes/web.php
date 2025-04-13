@@ -52,3 +52,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/deposit/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
     Route::get('/deposit/cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
 });
+
+Route::post('/refund', [PaymentController::class, 'refundPayment'])->name('payment.refund');
