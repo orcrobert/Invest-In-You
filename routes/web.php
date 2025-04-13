@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\AIController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -43,6 +44,8 @@ Route::post('/login', [SessionController::class, 'store']);
 
 Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
+// Rute pentru AI
+Route::post('/ai/response', [AIController::class, 'getAIResponse'])->middleware('auth');
 
 use App\Http\Controllers\PaymentController;
 

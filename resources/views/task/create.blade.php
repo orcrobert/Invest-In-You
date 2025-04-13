@@ -98,19 +98,6 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
-                        
-                        <!-- Priority Field (Optional - You can add this to your Task model if needed) -->
-                        <div class="md:col-span-1">
-                            <label for="priority" class="block text-sm font-medium text-gray-700">Prioritate</label>
-                            <div class="mt-1">
-                                <select name="priority" id="priority" 
-                                    class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 transition duration-150">
-                                    <option value="low">Scăzută</option>
-                                    <option value="medium" selected>Medie</option>
-                                    <option value="high">Ridicată</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
                     
                     <!-- Display validation errors -->

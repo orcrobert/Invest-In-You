@@ -96,19 +96,6 @@
                             </div>
                             <p class="mt-1 text-xs text-gray-500">Această valoare nu poate fi modificată după creare</p>
                         </div>
-                        
-                        <!-- Priority Field (Optional - Only if your task model has this field) -->
-                        <div class="md:col-span-1">
-                            <label for="priority" class="block text-sm font-medium text-gray-700">Prioritate</label>
-                            <div class="mt-1">
-                                <select name="priority" id="priority" 
-                                    class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 transition duration-150">
-                                    <option value="low" {{ isset($task->priority) && $task->priority == 'low' ? 'selected' : '' }}>Scăzută</option>
-                                    <option value="medium" {{ !isset($task->priority) || $task->priority == 'medium' ? 'selected' : '' }}>Medie</option>
-                                    <option value="high" {{ isset($task->priority) && $task->priority == 'high' ? 'selected' : '' }}>Ridicată</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
                     
                     <!-- Display validation errors -->

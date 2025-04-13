@@ -261,7 +261,12 @@
                         </button>
                         
                         <div class="border-r border-gray-200 h-6 mx-2"></div>
-                        
+                        <div class="hidden md:flex items-center px-3 py-1.5 bg-indigo-700 rounded-lg">
+                            <svg class="w-5 h-5 text-indigo-300 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="text-white font-medium text-sm">{{ Auth::user()->balance }} RON</span>
+                        </div>
                         <div class="relative">
                             <button class="flex items-center space-x-2 hover:bg-gray-50 p-1 rounded-full focus:outline-none">
                                 <div class="relative">
@@ -304,33 +309,6 @@
                         </div>
                     </div>
                     
-                    <!-- Stats row -->
-                    <!-- For the controller, add this comment: -->
-                    <!-- 
-                    // Statistics for the dashboard
-                    // In TaskController:
-                    
-                    $statsData = [
-                        'total' => Task::where('user_id', auth()->id())->count(),
-                        'completed' => Task::where('user_id', auth()->id())->where('completed', true)->count(),
-                        'pending' => Task::where('user_id', auth()->id())->where('completed', false)->count(),
-                        'overdue' => Task::where('user_id', auth()->id())
-                                         ->where('completed', false)
-                                         ->where('deadline', '<', now())
-                                         ->count(),
-                        'completion_rate' => Task::where('user_id', auth()->id())->count() > 0 
-                            ? round((Task::where('user_id', auth()->id())->where('completed', true)->count() / 
-                                    Task::where('user_id', auth()->id())->count()) * 100) 
-                            : 0,
-                        'total_penalties' => Task::where('user_id', auth()->id())
-                                                ->where('completed', false)
-                                                ->where('deadline', '<', now())
-                                                ->sum('price')
-                    ];
-                    
-                    return view('tasks.index', compact('tasks', 'statsData'));
-                    -->
-                    
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                         <!-- Total Tasks -->
                         <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100 animated-card stat-card" style="--animation-order: 1;">
@@ -348,10 +326,6 @@
                             <div class="mt-4">
                                 <div class="flex items-center text-sm">
                                     <span class="text-green-500 font-medium flex items-center">
-                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
-                                        </svg>
-                                        3 adăugate recent
                                     </span>
                                 </div>
                             </div>
@@ -433,9 +407,6 @@
                         <a href="/tasks?status=completed" class="px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg shadow-sm border border-gray-200 hover:bg-gray-50 focus:outline-none transition duration-150 ease-in-out">
                             Completate
                         </a>
-                        <a href="/tasks?priority=high" class="px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg shadow-sm border border-gray-200 hover:bg-gray-50 focus:outline-none transition duration-150 ease-in-out">
-                            Prioritate
-                        </a>
                         <div class="ml-auto">
                             <button class="px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg shadow-sm border border-gray-200 hover:bg-gray-50 focus:outline-none transition duration-150 ease-in-out flex items-center">
                                 <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -465,35 +436,6 @@
                             </div>
                         <!-- Tasks List -->
                         @else
-                            <!-- 
-                            // For the controller - Task Query Logic:
-                            
-                            // Basic query for tasks
-                            $query = Task::where('user_id', auth()->id());
-                            
-                            // Handle status filtering
-                            if (request()->has('status')) {
-                                if (request()->query('status') === 'completed') {
-                                    $query->where('completed', true);
-                                } elseif (request()->query('status') === 'not-completed') {
-                                    $query->where('completed', false);
-                                }
-                            }
-                            
-                            // Handle priority filtering (if you add priority column)
-                            if (request()->has('priority')) {
-                                $query->where('priority', request()->query('priority'));
-                            }
-                            
-                            // Handle sorting
-                            $sortBy = request()->query('sort', 'created_at');
-                            $sortDirection = request()->query('direction', 'desc');
-                            $query->orderBy($sortBy, $sortDirection);
-                            
-                            // Get paginated results
-                            $tasks = $query->paginate(10);
-                            -->
-                        
                             @foreach($tasks as $index => $task)
                                 <div class="task-card bg-white rounded-lg shadow-sm overflow-hidden animated-card" style="--animation-order: {{ 5 + $index }};">
                                     <div class="flex flex-col md:flex-row md:items-center">
@@ -522,11 +464,6 @@
                                                         <h3 class="text-lg font-semibold text-gray-800 task-title {{ $task->completed ? 'line-through text-gray-500' : '' }}">
                                                             {{ $task->title }}
                                                         </h3>
-                                                        
-                                                        <!-- Priority indicator (if you implement this feature) -->
-                                                        @if(isset($task->priority) && $task->priority == 'high')
-                                                            <span class="ml-2 px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">Urgent</span>
-                                                        @endif
                                                     </div>
                                                     
                                                     <p class="mt-2 text-gray-600 {{ $task->completed ? 'text-gray-400' : '' }}">

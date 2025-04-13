@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TaskMaster Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -360,6 +361,7 @@
             // Toggle chat window
             if (chatButton && chatWindow) {
                 chatButton.addEventListener('click', () => {
+                    console.log('chatButton clicked');
                     chatWindow.classList.toggle('hidden');
                     if (!chatWindow.classList.contains('hidden')) {
                         chatWindow.style.opacity = '1';
@@ -370,6 +372,7 @@
             // Close chat window
             if (closeChat && chatWindow) {
                 closeChat.addEventListener('click', () => {
+                    console.log('closeChat clicked');
                     chatWindow.classList.add('hidden');
                 });
             }
@@ -384,12 +387,34 @@
                         addMessage(message, 'user');
                         chatInput.value = '';
 
-                        // Simulate AI response
-                        setTimeout(() => {
-                            addMessage('Îmi pare rău, dar momentan nu sunt conectat la API-ul de AI. Această funcționalitate va fi implementată în curând!', 'ai');
-                        }, 1000);
+                        getAIResponse(message).then(response => {
+                            addMessage(response, 'ai');
+                        });
                     }
                 });
+            }
+
+            async function getAIResponse(message) {
+                try {
+                    const response = await fetch('/ai/response', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify({ message })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    return data.success ? data.message : 'Sorry, there was an error processing your request.';
+                } catch (error) {
+                    console.error('Error getting AI response:', error);
+                    return 'Îmi pare rău, dar momentan nu sunt conectat la API-ul de AI. Această funcționalitate va fi implementată în curând!';
+                }
             }
 
             function addMessage(text, sender) {
