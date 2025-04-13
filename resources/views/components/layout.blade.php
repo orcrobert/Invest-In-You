@@ -10,7 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #f6f7fb 0%, #eef2ff 100%);
@@ -18,16 +18,16 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         /* Custom Animations */
         @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(20px); 
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -49,68 +49,68 @@
             opacity: 0;
             animation-delay: calc(var(--animation-order) * 0.1s);
         }
-        
+
         /* Card and element effects */
         .hover-lift {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .hover-lift:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
-        
+
         /* Gradient button */
         .btn-gradient {
             background-image: linear-gradient(to right, #4f46e5, #7c3aed);
             transition: all 0.3s ease;
         }
-        
+
         .btn-gradient:hover {
             background-image: linear-gradient(to right, #4338ca, #6d28d9);
             box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
         }
-        
+
         /* Form inputs and labels */
         .form-input:focus {
             outline: none;
             box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.3);
             border-color: #4f46e5;
         }
-        
+
         .form-label {
             font-weight: 500;
             color: #374151;
             margin-bottom: 0.5rem;
             display: block;
         }
-        
+
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
         }
-        
+
         ::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 4px;
         }
-        
+
         ::-webkit-scrollbar-thumb {
             background: #c7d2fe;
             border-radius: 4px;
         }
-        
+
         ::-webkit-scrollbar-thumb:hover {
             background: #4f46e5;
         }
-        
+
         /* Main content wrapper to ensure footer is at bottom */
         .content-wrapper {
             flex: 1 0 auto;
             display: flex;
             flex-direction: column;
         }
-        
+
         /* Fixed footer */
         .footer {
             flex-shrink: 0;
@@ -134,7 +134,7 @@
                             <a href="/" class="text-2xl font-bold text-white">IIY</a>
                         </div>
                     </div>
-                    
+
                     <!-- Navigation Links (Hidden on mobile) -->
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-center space-x-6">
@@ -145,7 +145,7 @@
                             @endauth
                         </div>
                     </div>
-                    
+
                     <!-- Right side menu -->
                     <div class="flex items-center">
                         @guest
@@ -169,7 +169,6 @@
                             <div class="hidden md:block relative">
                                 <button type="button" class="flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-800" id="user-menu-button">
                                     <span class="sr-only">Open user menu</span>
-                                    <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                 </button>
                                 <!-- User Dropdown Menu (hidden by default) -->
                                 <div class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" id="user-dropdown">
@@ -221,7 +220,7 @@
                     </div>
                     @endauth
                 </div>
-                
+
                 @auth
                 <div class="border-t border-indigo-700 pb-3 pt-4">
                     <div class="flex items-center px-5">
@@ -266,7 +265,7 @@
             </div>
         </main>
     </div>
-        
+
     <!-- Footer - Fixed at bottom -->
     <footer class="footer bg-white border-t border-gray-200 shadow-md">
         <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
@@ -410,7 +409,7 @@
                 // Add event listener for title input
             titleInput.addEventListener('blur', function() {
                 const title = this.value.trim();
-                
+
                 // Validate title
                 if (title.length < 3) {
                     return; // Title too short
@@ -422,11 +421,11 @@
                 // Set new timeout
                 debounceTimer = setTimeout(async () => {
                     setLoadingState(true);
-                    
+
                     const suggestedPrice = await getSuggestedPrice(title);
-                    
+
                     setLoadingState(false);
-                    
+
                     if (suggestedPrice) {
                         updatePrice(suggestedPrice);
                     }
@@ -438,12 +437,12 @@
                 clearTimeout(debounceTimer); // Clear any pending timeouts
             });
 
-            
+
             if (userMenuButton && userDropdown) {
                 userMenuButton.addEventListener('click', () => {
                     userDropdown.classList.toggle('hidden');
                 });
-                
+
                 // Close the dropdown when clicking outside
                 document.addEventListener('click', (event) => {
                     if (!userMenuButton.contains(event.target) && !userDropdown.contains(event.target)) {
@@ -451,17 +450,17 @@
                     }
                 });
             }
-            
+
             // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            
+
             if (mobileMenuButton && mobileMenu) {
                 mobileMenuButton.addEventListener('click', () => {
                     mobileMenu.classList.toggle('hidden');
                 });
             }
-            
+
             // Chat Functionality
             const chatButton = document.getElementById('chatButton');
             const chatWindow = document.getElementById('chatWindow');
@@ -536,7 +535,7 @@
                     }
                     return 'Îmi pare rău, dar momentan nu sunt conectat la API-ul de AI. Această funcționalitate va fi implementată în curând!';
                 }
-            } 
+            }
 
             function showLoading() {
                 const template = document.getElementById('loadingTemplate');
@@ -552,16 +551,16 @@
             function addMessage(text, sender) {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `mb-4 ${sender === 'user' ? 'ml-auto' : ''}`;
-                
+
                 const messageContent = document.createElement('div');
                 messageContent.className = `rounded-lg p-3 shadow-sm max-w-[85%] ${sender === 'user' ? 'bg-indigo-600 text-white ml-auto' : 'bg-white border border-gray-100 text-gray-700'}`;
                 messageContent.innerHTML = `<p class="text-sm">${text}</p>`;
-                
+
                 messageDiv.appendChild(messageContent);
                 chatMessages.appendChild(messageDiv);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }
-            
+
             // Add animation for all cards
             const animatedCards = document.querySelectorAll('.animated-card');
             animatedCards.forEach((card, index) => {
