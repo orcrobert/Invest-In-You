@@ -56,4 +56,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/deposit/cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
 });
 
-Route::post('/refund', [PaymentController::class, 'refundPayment'])->name('payment.refund');
+Route::get('/profile', function () {
+    $user = auth()->user();
+    $stats = [
+        'total_tasks' => \App\Models\Task::where('user_id', $user->id)->count(),
+        'completed_tasks' => \App\Models\Task::where('user_id', $user->id)->where('completed', true)->count(),
+        'pending_tasks' => \App\Models\Task::where('user_id', $user->id)->where('completed', false)->count(),
+        'total_price' => \App\Models\Task::where('user_id', $user->id)->where('completed', false)->sum('price'),
+        'completion_rate' => $user->tasks()->count() > 0 
+            ? round(($user->tasks()->where('completed', true)->count() / $user->tasks()->count()) * 100) 
+            : 0,
+        'balance' => $user->balance
+    ];
+    return view('profile', compact('user', 'stats'));
+})->middleware(['auth'])->name('profile');
