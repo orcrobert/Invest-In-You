@@ -39,7 +39,6 @@
                             class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Log Out</button>
                             <div class="text-gray-300 font-bold">Balance: {{ Auth::user()->balance }}</div>
                     </form>
-
                     @endauth
 
                     <div class="md:hidden" id="mobile-menu">

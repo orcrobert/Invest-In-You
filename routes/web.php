@@ -42,3 +42,13 @@ Route::get('/login', [SessionController::class, 'create'])->name('login');
 Route::post('/login', [SessionController::class, 'store']);
 
 Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
+
+
+use App\Http\Controllers\PaymentController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/deposit', [PaymentController::class, 'depositForm'])->name('payment.deposit.form');
+    Route::post('/deposit/checkout', [PaymentController::class, 'createCheckoutSession'])->name('payment.checkout');
+    Route::get('/deposit/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+    Route::get('/deposit/cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
+});
