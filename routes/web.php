@@ -46,6 +46,7 @@ Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
 // Rute pentru AI
 Route::post('/ai/response', [AIController::class, 'getAIResponse'])->middleware('auth');
+Route::post('/api/suggest-task-price', [AIController::class, 'suggestTaskPrice']) ->middleware(['auth']);
 
 use App\Http\Controllers\PaymentController;
 

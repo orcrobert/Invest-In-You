@@ -66,7 +66,7 @@ class TaskController extends Controller
     {
         request()->validate([
             'title' => ['required', 'string', 'min:5'],
-            'description' => ['string', 'min:10'],
+            'description' => ['string', 'nullable'],
             'deadline' => ['date', 'nullable'],
             'price' => ['numeric', 'min:1'],
         ]);
@@ -125,6 +125,16 @@ class TaskController extends Controller
 
         if ($task) {
             $task->update(['completed' => true]);
+
+            if ($task->deadline == null) {
+                $user = Auth::user();
+
+                $user->update([
+                    'balance' => $user->balance + $task->price
+                ]);
+
+                return redirect('/tasks');
+            }
 
             if ($task->deadline && $task->price) {
                 $now = now();
