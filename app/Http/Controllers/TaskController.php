@@ -122,11 +122,26 @@ class TaskController extends Controller
     public function complete($id)
     {
         $task = Task::find($id);
-        $task->update(['completed' => true]);
+
+        if ($task) {
+            $task->update(['completed' => true]);
+
+            if ($task->deadline && $task->price) {
+                $now = now();
+                $deadline = \Carbon\Carbon::parse($task->deadline);
+
+                if ($now->lt($deadline)) {
+                    $user = Auth::user();
+
+                    $user->update([
+                        'balance' => $user->balance + $task->price
+                    ]);
+                }
+            }
+        }
 
         return redirect('/tasks');
     }
-
     public function destroy($id)
     {
         $task = Task::findOrFail($id);
