@@ -141,7 +141,7 @@
                             @auth
                             <a href="/tasks" class="text-white hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">Dashboard</a>
                             <a href="/deposit" class="text-indigo-200 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">Deposit</a>
-                            <a href="/contact" class="text-indigo-200 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">Contact</a>
+                            <a href="/refund" class="text-indigo-200 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">Withdraw</a>
                             @endauth
                         </div>
                     </div>

@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/profile', function () {
-    $user = auth()->user();
+    $user = Auth::user();
     $stats = [
         'total_tasks' => \App\Models\Task::where('user_id', $user->id)->count(),
         'completed_tasks' => \App\Models\Task::where('user_id', $user->id)->where('completed', true)->count(),
@@ -70,3 +70,8 @@ Route::get('/profile', function () {
     ];
     return view('profile', compact('user', 'stats'));
 })->middleware(['auth'])->name('profile');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/refund', [PaymentController::class, 'refundForm'])->name('payment.refund.form');
+    Route::post('/refund', [PaymentController::class, 'processRefund'])->name('payment.process-refund');
+});
