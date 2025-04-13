@@ -27,7 +27,7 @@ Route::get('/contact', function() {
 
 // Rute pentru task-uri
 Route::get('/create', [TaskController::class, 'create'])->middleware('auth');
-Route::get('/tasks', [TaskController::class, 'index'])->middleware('auth');
+Route::get('/tasks', [TaskController::class, 'index'])->middleware('auth')->name('tasks.index');
 Route::post('/tasks', [TaskController::class, 'store'])->middleware('auth');
 Route::get('/task/{id}/edit', [TaskController::class, 'edit'])->middleware('auth');
 Route::patch('/task/{id}', [TaskController::class, 'update']);
