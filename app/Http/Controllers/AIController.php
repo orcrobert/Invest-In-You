@@ -18,14 +18,14 @@ class AIController extends Controller
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . config('services.openrouter.key'),
                 'HTTP-Referer' => url('/'),
-                'X-Title' => 'TaskMaster Pro',
+                'X-Title' => 'Invest in You',
                 'Content-Type' => 'application/json'
             ])->post('https://openrouter.ai/api/v1/chat/completions', [
                 'model' => 'meta-llama/llama-3.3-70b-instruct:free',
                 'messages' => [
                     [
                         'role' => 'system',
-                        'content' => "You are TaskMaster Pro's AI assistant, designed to help users understand and effectively use our task commitment platform. Here's what you need to know:
+                        'content' => "You are Invest in You AI assistant, designed to help users understand and effectively use our task commitment platform. Here's what you need to know:
                         Core Function:
                         - Users can create tasks and attach monetary stakes to them
                         - If a task is completed by the deadline, the user gets their money back
@@ -110,14 +110,14 @@ class AIController extends Controller
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . config('services.openrouter.key'),
                 'HTTP-Referer' => url('/'),
-                'X-Title' => 'TaskMaster Pro',
+                'X-Title' => 'Invest in You',
                 'Content-Type' => 'application/json'
             ])->post('https://openrouter.ai/api/v1/chat/completions', [
                 'model' => 'meta-llama/llama-3.3-70b-instruct:free',
                 'messages' => [
                     [
                         'role' => 'system',
-                        'content' => "You are a task pricing expert for TaskMaster Pro. Your role is to suggest appropriate prices for tasks based on:
+                        'content' => "You are a task pricing expert for Invest in You. Your role is to suggest appropriate prices for tasks based on:
                         1. The task's title and complexity
                         2. The user's current balance ({$userBalance} RON)
                         3. The user's task history
